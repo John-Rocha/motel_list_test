@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
-import 'entities.dart';
+import 'package:motel_list_test/data/models/period_entity.dart';
+import 'package:motel_list_test/domain/entities/category_item_entity.dart';
+import 'package:motel_list_test/domain/entities/item_suite_entity.dart';
 
 class SuiteEntity extends Equatable {
   final String nome;
