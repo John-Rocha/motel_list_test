@@ -24,10 +24,17 @@ class MotelCard extends StatelessWidget {
   }
 }
 
-class _MotelInfoHeader extends StatelessWidget {
+class _MotelInfoHeader extends StatefulWidget {
   final MotelEntity motel;
 
   const _MotelInfoHeader({required this.motel});
+
+  @override
+  State<_MotelInfoHeader> createState() => _MotelInfoHeaderState();
+}
+
+class _MotelInfoHeaderState extends State<_MotelInfoHeader> {
+  bool isFavorite = false;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +50,7 @@ class _MotelInfoHeader extends StatelessWidget {
             children: [
               ClipOval(
                 child: Image.network(
-                  motel.logo,
+                  widget.motel.logo,
                   width: 40,
                   height: 40,
                   fit: BoxFit.cover,
@@ -54,11 +61,11 @@ class _MotelInfoHeader extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    motel.fantasia,
+                    widget.motel.fantasia,
                     style: Theme.of(context).textTheme.headlineLarge,
                   ),
                   Text(
-                    motel.bairro,
+                    widget.motel.bairro,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: Colors.grey.shade800,
                         ),
@@ -83,7 +90,7 @@ class _MotelInfoHeader extends StatelessWidget {
                               size: 12,
                             ),
                             Text(
-                              motel.media.toString(),
+                              widget.motel.media.toString(),
                               style: Theme.of(context).textTheme.bodySmall,
                             ),
                           ],
@@ -91,7 +98,7 @@ class _MotelInfoHeader extends StatelessWidget {
                       ),
                       const SizedBox(width: 8),
                       Text(
-                        '${motel.qtdAvaliacoes} avaliações',
+                        '${widget.motel.qtdAvaliacoes} avaliações',
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                       Icon(
@@ -103,9 +110,16 @@ class _MotelInfoHeader extends StatelessWidget {
                 ],
               ),
               Spacer(),
-              Icon(
-                Icons.favorite_outlined,
-                color: Colors.grey,
+              InkWell(
+                onTap: () {
+                  setState(() {
+                    isFavorite = !isFavorite;
+                  });
+                },
+                child: Icon(
+                  Icons.favorite_outlined,
+                  color: isFavorite ? Colors.red : Colors.grey,
+                ),
               ),
             ],
           ),
